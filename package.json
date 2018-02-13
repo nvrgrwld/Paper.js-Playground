@@ -1,0 +1,23 @@
+{
+  "name": "paper.js-playground",
+  "version": "1.0.0",
+  "description": "Who doesn't want to play with Paper.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nvrgrwld/Paper.js-Playground.git"
+  },
+  "author": "Greg Netland",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nvrgrwld/Paper.js-Playground/issues"
+  },
+  "homepage": "https://github.com/nvrgrwld/Paper.js-Playground#readme",
+  "dependencies": {
+    "express": "^4.16.2",
+    "paper": "^0.11.5"
+  }
+}
