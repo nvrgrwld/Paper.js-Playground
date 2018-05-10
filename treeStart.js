@@ -4,37 +4,56 @@ var screenRightX = 1100;
 var upOrdown = -1;
 var changeThis = 0;
 
-var X1 = 100;
-var Ya = 225;
-var Y1 = Ya;
-var line1 = [];
+var Xarr = [
+	90,
+	95,
+	100,
+	105,
+	110,
+	115,
+	120
+];
 
-var X2 = 100;
-var Yb = 450;
-var Y2 = Yb;
+var Yarr = [
+	200,
+	250,
+	325,
+	425,
+	550
+];
+
+var line= [];
 var line2 = [];
+var X,Y,k = 0;
 
 function onFrame(event){
 
-	if(X1 < screenRightX){
+	if(k < 1) { //X1 < screenRightX){
+	 k++;
 
-		// line A
-		X1 += getRandom() + 100;
-		Y1 = Ya + (getRandom() + getRandom()) * upOrdown;
-		var Anext = new Point(X1,Y1);
-		path1.lineTo(Anext);
-		line1.push(Anext);
-		
-		upOrdown *= -1;
+	 for(var i = 0; i < Yarr.length; ++i){
+		 
+		// reset values for new line
+		var path = new Path();
+		path.strokeColor = 'red';
+		var start = new Point(Xarr[0], Yarr[i]);
+		path.moveTo(start);
+		line = [];
+		Y = Yarr[0];
+		X = Xarr[0];
+		upOrdown = -1;
 
-		// line B
-		X2 += getRandom() + 100;
-		Y2 = Yb + (getRandom() + getRandom()) * upOrdown;
-		var Bnext = new Point(X2,Y2);
-		path2.lineTo(Bnext);
-		line2.push(Bnext);
-
-		
+		for(var j = 0; j < Xarr.length; ++j){
+			typeof(X) ===  'number' ? X += getRandom() + Xarr[j] : X = getRandom() + Xarr[j];
+			Y = Yarr[i] + (getRandom() + getRandom()) * upOrdown;
+			var Anext = new Point(X,Y);
+			path.lineTo(Anext);
+			line.push(Anext);
+			
+			upOrdown *= -1;
+			console.log(X, Y, upOrdown);
+		}
+	}
 		// //circles for A
 		// var circle = new Path.Circle(new Point(X1, Y1), 10);
 		// circle.strokeColor = 'green';
@@ -43,46 +62,13 @@ function onFrame(event){
 		// var circle = new Path.Circle(new Point(X2, Y2), 10);
 		// circle.strokeColor = 'blue';
 
-		console.log(X1, Y1, upOrdown, X2, Y2);
-	} else {
-		if(changeThis <= line1.length){
-			var myPath = new Path();
-			myPath.strokeColor = 'green';
-			myPath.add(line1[0], line2[1]);
-			myPath.add(line1[2], line2[2]);
-			myPath.add(line1[3], line2[4]);
-			myPath.add(line1[6], line2[5]);
-			myPath.add(line1[6], line2[6]);
-			myPath.add(line1[6], line2[7]);
-			myPath.add(line1[6], line2[8]);
-			myPath.add(line1[6], line2[9]);
-			
-			
-		}
 	}
 }
 
-
-
-
-var path1 = new Path();
-path1.strokeColor = 'red';
-var start1 = new Point(X1, Y1);
-path1.moveTo(start1);
-
-
-var path2 = new Path();
-path2.strokeColor = 'orange';
-var start2 = new Point(X2, Y2);
-path2.moveTo(start2);
-
-//circles for A
-var circle = new Path.Circle(new Point(X1, Y1), 10);
-circle.strokeColor = 'green';
-
-//circles for B
-var circle = new Path.Circle(new Point(X2, Y2), 10);
-circle.strokeColor = 'blue';
+// var path1 = new Path();
+// path1.strokeColor = 'red';
+// var start1 = new Point(Xarr[0], Yarr[0]);
+// path1.moveTo(start1);
 
 function getRandom(){
 	return Math.floor(Math.random() * 10);
