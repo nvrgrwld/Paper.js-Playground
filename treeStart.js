@@ -1,3 +1,4 @@
+//import { Layer } from "paper";
 
 var screenLeftX = 100;
 var screenRightX = 1100;
@@ -11,30 +12,47 @@ var Xarr = [
 	105,
 	110,
 	115,
-	120
+	120,
+	125,
+	130,
+	140,
+	150,
 ];
 
 var Yarr = [
+	190,
 	200,
+	220,
 	250,
-	325,
-	425,
-	550
+	290,
+	340,
+	400, 
+	470,
+	550,
+	640,
+	740,
 ];
 
 var line= [];
 var line2 = [];
 var X,Y,k = 0;
+var pathHolder = [];
 
 function onFrame(event){
 
-	if(k < 1) { //X1 < screenRightX){
+	if(k < 4) { //X1 < screenRightX){
 	 k++;
+	 
+	//  if(project.layers.length > 3){
+	// 	 console.log('the layers');
+	//  }
+	 //window[k + ] = new Layer();
 
 	 for(var i = 0; i < Yarr.length; ++i){
 		 
 		// reset values for new line
 		var path = new Path();
+		pathHolder.push(path);
 		path.strokeColor = 'red';
 		var start = new Point(Xarr[0], Yarr[i]);
 		path.moveTo(start);
@@ -48,10 +66,13 @@ function onFrame(event){
 			Y = Yarr[i] + (getRandom() + getRandom()) * upOrdown;
 			var Anext = new Point(X,Y);
 			path.lineTo(Anext);
+			path.smooth();
 			line.push(Anext);
 			
-			upOrdown *= -1;
-			console.log(X, Y, upOrdown);
+			if(getRandom() < 10){
+				upOrdown *= -1;
+			}
+			// console.log(X, Y, upOrdown);
 		}
 	}
 		// //circles for A
@@ -62,6 +83,18 @@ function onFrame(event){
 		// var circle = new Path.Circle(new Point(X2, Y2), 10);
 		// circle.strokeColor = 'blue';
 
+	}
+	else  {
+		//debugger;
+		k = 0;
+		for(var ii = 0; ii < pathHolder.length / 2; ++ii){
+			var path = pathHolder[ii];
+			path.remove();
+		}
+		pathHolder.splice(0, pathHolder.length / 2);
+		console.log(pathHolder.length);
+		//project.clear();
+		//console.log('beans');
 	}
 }
 
@@ -74,4 +107,13 @@ function getRandom(){
 	return Math.floor(Math.random() * 10);
 }
 
+// function sleep(ms){
+// 	return new Promise(resolve => setTimeout(resolve, ms));
+// }
 
+// async function runPause(){
+// 	await sleep(2000);
+// 	k = 0;
+// }
+
+// runPause();
